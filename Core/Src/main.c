@@ -253,7 +253,7 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	/* A BABY TALKS FOR */
+	/* A BABY TALK */
 	GPIO_PinState gf6 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_6);
 	GPIO_PinState gf7 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_7);
 	GPIO_PinState gf8 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_8);
