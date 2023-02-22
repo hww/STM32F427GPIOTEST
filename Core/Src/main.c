@@ -202,12 +202,12 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOF, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
-                          |GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
+                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_10|GPIO_PIN_11, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PF0 PF1 PF2 PF3
-                           PF4 PF5 */
+                           PF4 PF5 PF10 PF11 */
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
-                          |GPIO_PIN_4|GPIO_PIN_5;
+                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_10|GPIO_PIN_11;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -231,6 +231,21 @@ static void MX_GPIO_Init(void)
   * @param  argument: Not used
   * @retval None
   */
+/*
+ * THE JOB TASK FROM HD DEPARTMENT -- FOR STM (STM32F427ZGT6):
+ *
+ * GPIOS:
+ * PF0, PF1, PF2, PF3, PF4, PF5, PF10, PF11 - outputs;
+ * PF6, PF7, PF8, PF9 – inputs.
+ *
+ * When PF6=1 then PF0=1, when PF6=0 then PF0=0;
+ * When PF7=1 then PF1=1, when PF7=0 then PF1=0;
+ * When PF8=1 then PF2=1, when PF8=0 then PF2=0;
+ * When PF9=1 then PF3=1, when PF9=0 then PF3=0;
+ *
+ * When PF6=1 и PF7=1, then PF10=1, otherwise PF10=0;
+ * When PF8=1 и PF9=1, then PF11=1, otherwise PF11=0;
+ */
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
@@ -238,7 +253,21 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	/* A BABY TALKS FOR */
+	auto gf6 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_6);
+	auto gf7 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_7);
+	auto gf8 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_8);
+	auto gf9 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_9);
+	auto gf10 = gf6 == GPIO_PIN_SET && gf7 == GPIO_PIN_SET;
+	auto gf11 = gf8 == GPIO_PIN_SET && gf9 == GPIO_PIN_SET;
+	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_0, gf6);
+	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_1, gf7);
+	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_2, gf8);
+	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_3, gf9);
+	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, gf8);
+	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, gf9);
+
+    osDelay(10);
   }
   /* USER CODE END 5 */
 }
