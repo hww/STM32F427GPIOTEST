@@ -79,8 +79,8 @@ all: main-build
 main-build: STM32F427GPIOTESTX.elf secondary-outputs
 
 # Tool invocations
-STM32F427GPIOTESTX.elf STM32F427GPIOTESTX.map: $(OBJS) $(USER_OBJS) /home/valery/STM32CubeIDE/workspace_1.11.2/STM32F427GPIOTESTX/STM32F427ZGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "STM32F427GPIOTESTX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/valery/STM32CubeIDE/workspace_1.11.2/STM32F427GPIOTESTX/STM32F427ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F427GPIOTESTX.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+STM32F427GPIOTESTX.elf STM32F427GPIOTESTX.map: $(OBJS) $(USER_OBJS) /home/valery/projects/veda/STM32F427GPIOTEST/STM32F427ZGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "STM32F427GPIOTESTX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/valery/projects/veda/STM32F427GPIOTEST/STM32F427ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F427GPIOTESTX.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
