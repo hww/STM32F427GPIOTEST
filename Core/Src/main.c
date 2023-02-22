@@ -254,18 +254,20 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
 	/* A BABY TALKS FOR */
-	auto gf6 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_6);
-	auto gf7 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_7);
-	auto gf8 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_8);
-	auto gf9 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_9);
-	auto gf10 = gf6 == GPIO_PIN_SET && gf7 == GPIO_PIN_SET;
-	auto gf11 = gf8 == GPIO_PIN_SET && gf9 == GPIO_PIN_SET;
+	GPIO_PinState gf6 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_6);
+	GPIO_PinState gf7 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_7);
+	GPIO_PinState gf8 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_8);
+	GPIO_PinState gf9 = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_9);
+
+	int gf10 = (int)gf6 & (int)gf7;
+	int gf11 = (int)gf8 & (int)gf9;
+
 	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_0, gf6);
 	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_1, gf7);
 	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_2, gf8);
 	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_3, gf9);
-	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, gf8);
-	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, gf9);
+	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, gf10 ? GPIO_PIN_SET : GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, gf11 ? GPIO_PIN_SET : GPIO_PIN_RESET);
 
     osDelay(10);
   }
