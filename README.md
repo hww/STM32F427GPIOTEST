@@ -1,9 +1,16 @@
 # STM32F427GPIOTEST
 
 
-## TOOLS
+## Developer's Tools
 
-CubeIDE
+The project for STM32CubeIDE 1.11.2
+
+For the arch based linux can be installed
+
+```
+yay stm32cubeide
+```
+
 
 To change the JTAG Programmer:
 
