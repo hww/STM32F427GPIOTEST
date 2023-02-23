@@ -5,6 +5,14 @@
 
 CubeIDE
 
+To change the JTAG Programmer:
+
+1. Use the mainmenu option '/Run/Run Configurations...'
+2. Then, at the left item's tree select /"Stm32C/C++ Application"/"STM32F427GPIOTESTX Debug" 
+3. Then, at the right of thhree select a "Debug" tab 
+4. With "Debug" tab active change a "Debug Probe" to yours (aka JLink or STLink)
+
+
 ## Main Loop
 
 The main /task/ code in the body of /StartDefaultTask/ function at the end of *Core/Src/main.c* file;
